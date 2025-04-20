@@ -21,13 +21,18 @@ export const updateCartItemQuantity = (
   productId: string,
   newQuantity: number,
 ): CartItem[] => {
-  if (newQuantity <= 0) {
-    return cart.filter((item) => item.product.id !== productId);
+  const cartItem = cart.find((item) => item.product.id === productId);
+
+  if (!cartItem) {
+    return cart;
   }
 
-  const updatedCart = cart.map((item) =>
-    item.product.id === productId ? { ...item, quantity: newQuantity } : item,
-  );
+  const maxQuantity = cartItem.product.stock;
+  const updatedQuantity = Math.max(0, Math.min(newQuantity, maxQuantity));
 
-  return updatedCart;
+  return cart
+    .map((item) =>
+      item.product.id === productId ? { ...item, quantity: updatedQuantity } : item,
+    )
+    .filter((item) => item.quantity > 0);
 };
