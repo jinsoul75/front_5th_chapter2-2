@@ -28,8 +28,10 @@ export const useCart = () => {
   };
 
   const updateQuantity = (productId: string, newQuantity: number) => {
-    const updatedCart = updateCartItemQuantity(cart, productId, newQuantity);
-    setCart(updatedCart);
+    setCart((prevCart) => {
+      const updatedCart = updateCartItemQuantity(prevCart, productId, newQuantity);
+      return updatedCart;
+    });
   };
 
   const applyCoupon = (coupon: Coupon) => {
