@@ -1,25 +1,4 @@
-import { CartItem, Coupon, Product } from '../../types';
-
-export const findCartItem = (
-  cart: CartItem[],
-  productId: string,
-): CartItem | undefined => {
-  return cart.find((item) => item.product.id === productId);
-};
-
-export const createCartItem = (product: Product): CartItem => {
-  return { product, quantity: 1 };
-};
-
-export const addProductToCart = (cart: CartItem[], product: Product): CartItem[] => {
-  const existingItem = findCartItem(cart, product.id);
-
-  if (existingItem) {
-    return updateCartItemQuantity(cart, product.id, existingItem.quantity + 1);
-  }
-
-  return [...cart, createCartItem(product)];
-};
+import { CartItem, Coupon } from '../../types';
 
 export const calculateItemTotal = (item: CartItem) => {
   const { product, quantity } = item;
