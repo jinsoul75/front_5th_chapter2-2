@@ -9,6 +9,7 @@ export const useCart = () => {
 
   const addToCart = (product: Product) => {
     const checkExisitingCartItem = cart.find((item) => item.product.id === product.id);
+
     if (checkExisitingCartItem) {
       const updatedCart = updateCartItemQuantity(
         cart,
@@ -31,7 +32,9 @@ export const useCart = () => {
     setCart(updatedCart);
   };
 
-  const applyCoupon = (coupon: Coupon) => {};
+  const applyCoupon = (coupon: Coupon) => {
+    setSelectedCoupon(coupon);
+  };
 
   const calculateTotal = () => ({
     totalBeforeDiscount: 0,
