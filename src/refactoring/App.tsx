@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CartPage, AdminPage } from './pages';
 import { Coupon, Product } from '../types.ts';
 import { useCoupons, useProducts } from './hooks';
-import { Navigation } from './components/Navigation.tsx';
+import { Navigation } from './components';
 import { NAVIGATION_TEXT } from './constants';
 
 const initialProducts: Product[] = [
