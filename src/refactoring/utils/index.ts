@@ -1,2 +1,2 @@
-export * from './formatPrice';
+export * from './formatCurrency';
 export * from './formatDiscountRate';

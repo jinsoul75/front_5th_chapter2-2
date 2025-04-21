@@ -1,5 +1,5 @@
 import { CartItem, Coupon } from '../../../../types';
-import { formatDiscountRate, formatPrice } from '../../../utils';
+import { formatDiscountRate, formatCurrency } from '../../../utils';
 
 interface Props {
   cart: CartItem[];
@@ -41,7 +41,7 @@ export const CartList = ({
                 <span className="font-semibold">{item.product.name}</span>
                 <br />
                 <span className="text-sm text-gray-600">
-                  {formatPrice(item.product.price)} x {item.quantity}
+                  {formatCurrency(item.product.price)} x {item.quantity}
                   {appliedDiscount > 0 && (
                     <span className="text-green-600 ml-1">
                       ({formatDiscountRate(appliedDiscount)} 할인 적용)
@@ -85,7 +85,7 @@ export const CartList = ({
             <option key={coupon.code} value={index}>
               {coupon.name} -{' '}
               {coupon.discountType === 'amount'
-                ? `${formatPrice(coupon.discountValue)}`
+                ? `${formatCurrency(coupon.discountValue)}`
                 : `${formatDiscountRate(coupon.discountValue)}`}
             </option>
           ))}
@@ -94,7 +94,7 @@ export const CartList = ({
           <p className="text-green-600">
             적용된 쿠폰: {selectedCoupon.name}(
             {selectedCoupon.discountType === 'amount'
-              ? `${formatPrice(selectedCoupon.discountValue)}`
+              ? `${formatCurrency(selectedCoupon.discountValue)}`
               : `${formatDiscountRate(selectedCoupon.discountValue)}`}{' '}
             할인)
           </p>
@@ -104,10 +104,10 @@ export const CartList = ({
       <div className="mt-6 bg-white p-4 rounded shadow">
         <h2 className="text-2xl font-semibold mb-2">주문 요약</h2>
         <div className="space-y-1">
-          <p>상품 금액: {formatPrice(totalBeforeDiscount)}</p>
-          <p className="text-green-600">할인 금액: {formatPrice(totalDiscount)}</p>
+          <p>상품 금액: {formatCurrency(totalBeforeDiscount)}</p>
+          <p className="text-green-600">할인 금액: {formatCurrency(totalDiscount)}</p>
           <p className="text-xl font-bold">
-            최종 결제 금액: {formatPrice(totalAfterDiscount)}
+            최종 결제 금액: {formatCurrency(totalAfterDiscount)}
           </p>
         </div>
       </div>

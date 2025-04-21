@@ -1,5 +1,5 @@
 import { Discount, Product } from '../../../../types';
-import { formatDiscountRate, formatPrice } from '../../../utils';
+import { formatDiscountRate, formatCurrency } from '../../../utils';
 
 interface Props {
   products: Product[];
@@ -28,7 +28,7 @@ export const ProductList = ({
             >
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold">{product.name}</span>
-                <span className="text-gray-600">{formatPrice(product.price)}</span>
+                <span className="text-gray-600">{formatCurrency(product.price)}</span>
               </div>
               <div className="text-sm text-gray-500 mb-2">
                 <span
