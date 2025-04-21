@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Coupon, Discount, Product } from '../../../types';
 import { PageLayout } from '../../components';
-import { formatDiscountRate } from '../../utils';
+import { formatDiscountRate, validateProductData } from '../../utils';
 
 interface Props {
   products: Product[];
@@ -122,6 +122,14 @@ export const AdminPage = ({
 
   const handleAddNewProduct = () => {
     const productWithId = { ...newProduct, id: Date.now().toString() };
+
+    const validationErrors = validateProductData(productWithId);
+
+    if (validationErrors.length > 0) {
+      alert(validationErrors.map((error) => error.message).join('\n'));
+      return;
+    }
+
     onProductAdd(productWithId);
     setNewProduct({
       name: '',

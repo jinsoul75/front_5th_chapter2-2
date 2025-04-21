@@ -45,26 +45,24 @@ export const CartPage = ({ products, coupons }: Props) => {
 
   return (
     <PageLayout title="장바구니">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ProductList
-          products={products}
-          addToCart={addToCart}
-          getMaxDiscount={getMaxDiscount}
-          getRemainingStock={getRemainingStock}
-        />
-        <CartList
-          cart={cart}
-          getAppliedDiscount={getAppliedDiscount}
-          updateQuantity={updateQuantity}
-          removeFromCart={removeFromCart}
-          applyCoupon={applyCoupon}
-          coupons={coupons}
-          selectedCoupon={selectedCoupon}
-          totalBeforeDiscount={totalBeforeDiscount}
-          totalAfterDiscount={totalAfterDiscount}
-          totalDiscount={totalDiscount}
-        />
-      </div>
+      <ProductList
+        products={products}
+        addToCart={addToCart}
+        getMaxDiscount={getMaxDiscount}
+        getRemainingStock={getRemainingStock}
+      />
+      <CartList
+        cart={cart}
+        getAppliedDiscount={getAppliedDiscount}
+        updateQuantity={updateQuantity}
+        removeFromCart={removeFromCart}
+        applyCoupon={applyCoupon}
+        coupons={coupons}
+        selectedCoupon={selectedCoupon}
+        totalBeforeDiscount={totalBeforeDiscount}
+        totalAfterDiscount={totalAfterDiscount}
+        totalDiscount={totalDiscount}
+      />
     </PageLayout>
   );
 };
