@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Coupon, Discount, Product } from '../../../types';
 import { PageLayout } from '../../components';
+import { formatDiscountRate } from '../../utils';
 
 interface Props {
   products: Product[];
@@ -317,7 +318,9 @@ export const AdminPage = ({
                       {product.discounts.map((discount, index) => (
                         <div key={index} className="mb-2">
                           <span>
-                            {discount.quantity}개 이상 구매 시 {discount.rate * 100}% 할인
+                            {discount.quantity}개 이상 구매 시{' '}
+                            {formatDiscountRate(discount.rate)}
+                            할인
                           </span>
                         </div>
                       ))}

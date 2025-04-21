@@ -1,4 +1,5 @@
 import { CartItem, Coupon } from '../../../../types';
+import { formatDiscountRate, formatPrice } from '../../../utils';
 
 interface Props {
   cart: CartItem[];
@@ -40,10 +41,10 @@ export const CartList = ({
                 <span className="font-semibold">{item.product.name}</span>
                 <br />
                 <span className="text-sm text-gray-600">
-                  {item.product.price}원 x {item.quantity}
+                  {formatPrice(item.product.price)} x {item.quantity}
                   {appliedDiscount > 0 && (
                     <span className="text-green-600 ml-1">
-                      ({(appliedDiscount * 100).toFixed(0)}% 할인 적용)
+                      ({formatDiscountRate(appliedDiscount)} 할인 적용)
                     </span>
                   )}
                 </span>
@@ -84,8 +85,8 @@ export const CartList = ({
             <option key={coupon.code} value={index}>
               {coupon.name} -{' '}
               {coupon.discountType === 'amount'
-                ? `${coupon.discountValue}원`
-                : `${coupon.discountValue}%`}
+                ? `${formatPrice(coupon.discountValue)}`
+                : `${formatDiscountRate(coupon.discountValue)}`}
             </option>
           ))}
         </select>
@@ -93,8 +94,8 @@ export const CartList = ({
           <p className="text-green-600">
             적용된 쿠폰: {selectedCoupon.name}(
             {selectedCoupon.discountType === 'amount'
-              ? `${selectedCoupon.discountValue}원`
-              : `${selectedCoupon.discountValue}%`}{' '}
+              ? `${formatPrice(selectedCoupon.discountValue)}`
+              : `${formatDiscountRate(selectedCoupon.discountValue)}`}{' '}
             할인)
           </p>
         )}
@@ -103,10 +104,10 @@ export const CartList = ({
       <div className="mt-6 bg-white p-4 rounded shadow">
         <h2 className="text-2xl font-semibold mb-2">주문 요약</h2>
         <div className="space-y-1">
-          <p>상품 금액: {totalBeforeDiscount.toLocaleString()}원</p>
-          <p className="text-green-600">할인 금액: {totalDiscount.toLocaleString()}원</p>
+          <p>상품 금액: {formatPrice(totalBeforeDiscount)}</p>
+          <p className="text-green-600">할인 금액: {formatPrice(totalDiscount)}</p>
           <p className="text-xl font-bold">
-            최종 결제 금액: {totalAfterDiscount.toLocaleString()}원
+            최종 결제 금액: {formatPrice(totalAfterDiscount)}
           </p>
         </div>
       </div>

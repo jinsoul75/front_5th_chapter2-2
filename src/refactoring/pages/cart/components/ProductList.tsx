@@ -1,4 +1,5 @@
 import { Discount, Product } from '../../../../types';
+import { formatDiscountRate, formatPrice } from '../../../utils';
 
 interface Props {
   products: Product[];
@@ -27,7 +28,7 @@ export const ProductList = ({
             >
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold">{product.name}</span>
-                <span className="text-gray-600">{product.price.toLocaleString()}원</span>
+                <span className="text-gray-600">{formatPrice(product.price)}</span>
               </div>
               <div className="text-sm text-gray-500 mb-2">
                 <span
@@ -39,7 +40,7 @@ export const ProductList = ({
                 </span>
                 {product.discounts.length > 0 && (
                   <span className="ml-2 font-medium text-blue-600">
-                    최대 {(getMaxDiscount(product.discounts) * 100).toFixed(0)}% 할인
+                    최대 {formatDiscountRate(getMaxDiscount(product.discounts))} 할인
                   </span>
                 )}
               </div>
@@ -47,7 +48,7 @@ export const ProductList = ({
                 <ul className="list-disc list-inside text-sm text-gray-500 mb-2">
                   {product.discounts.map((discount, index) => (
                     <li key={index}>
-                      {discount.quantity}개 이상: {(discount.rate * 100).toFixed(0)}% 할인
+                      {discount.quantity}개 이상: {formatDiscountRate(discount.rate)} 할인
                     </li>
                   ))}
                 </ul>
