@@ -20,8 +20,6 @@ export const CartPage = ({ products, coupons }: Props) => {
     selectedCoupon,
   } = useCart();
 
-  const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = calculateTotal();
-
   const getAppliedDiscount = (item: CartItem) => {
     const { discounts } = item.product;
     const { quantity } = item;
@@ -59,9 +57,6 @@ export const CartPage = ({ products, coupons }: Props) => {
         applyCoupon={applyCoupon}
         coupons={coupons}
         selectedCoupon={selectedCoupon}
-        totalBeforeDiscount={totalBeforeDiscount}
-        totalAfterDiscount={totalAfterDiscount}
-        totalDiscount={totalDiscount}
       />
     </PageLayout>
   );
