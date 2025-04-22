@@ -9,7 +9,7 @@ import {
 import { useLocalStorage } from './useLocalStorage';
 
 export const useCart = () => {
-  const [cart, setCart] = useLocalStorage('cart', []);
+  const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []);
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
   const addToCart = (product: Product) => {
