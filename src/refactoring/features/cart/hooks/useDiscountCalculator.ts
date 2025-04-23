@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { CartItem, Coupon } from '../../types';
+import { CartItem, Coupon } from '../../../../types';
 import { calculateCartTotal } from '../models/cart';
 
 interface UseDiscountCalculatorReturn {

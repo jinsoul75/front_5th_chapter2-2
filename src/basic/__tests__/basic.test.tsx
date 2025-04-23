@@ -10,8 +10,8 @@ import {
 } from '@testing-library/react';
 import { CartPage, AdminPage } from '../../refactoring/pages';
 import { CartItem, Coupon, Product } from '../../types';
-import { useCart, useCoupons, useProducts } from '../../refactoring/hooks';
-import * as cartUtils from '../../refactoring/models/cart';
+import { useCart, useCoupons, useProducts } from '../../refactoring/features/cart/hooks';
+import * as cartUtils from '../../refactoring/features/cart/models/cart';
 
 const mockProducts: Product[] = [
   {

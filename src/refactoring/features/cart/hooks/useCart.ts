@@ -1,6 +1,6 @@
 // useCart.ts
 import { useState } from 'react';
-import { CartItem, Coupon, Product } from '../../types';
+import { CartItem, Coupon, Product } from '../../../../types';
 import { addProductToCart, updateCartItemQuantity } from '../models/cart';
 import { useLocalStorage } from './useLocalStorage';
 

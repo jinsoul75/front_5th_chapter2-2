@@ -1,18 +1,13 @@
 import { formatCurrency, formatDiscountRate } from '../../../utils';
 import { CartItem } from '../../../../types';
+import { getAppliedDiscount } from '../models/cart';
 interface Props {
   item: CartItem;
-  getAppliedDiscount: (item: CartItem) => number;
   updateQuantity: (productId: string, newQuantity: number) => void;
   removeFromCart: (productId: string) => void;
 }
 
-export const CartCard = ({
-  item,
-  getAppliedDiscount,
-  updateQuantity,
-  removeFromCart,
-}: Props) => {
+export const CartCard = ({ item, updateQuantity, removeFromCart }: Props) => {
   const appliedDiscount = getAppliedDiscount(item);
   return (
     <div

@@ -1,6 +1,6 @@
 import { CartItem, Product } from '../../../../types';
 import { ProductCard } from './ProductCard';
-import { calculateRemainingStock } from '../../../models/cart';
+import { calculateRemainingStock } from '../models/cart';
 interface Props {
   cart: CartItem[];
   products: Product[];
