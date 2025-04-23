@@ -1,5 +1,5 @@
-import { Product } from '../../types';
-import { formatDiscountRate, formatCurrency } from '../utils';
+import { Product } from '../../../../types';
+import { formatDiscountRate, formatCurrency } from '../../../utils';
 
 interface Props {
   product: Product;
