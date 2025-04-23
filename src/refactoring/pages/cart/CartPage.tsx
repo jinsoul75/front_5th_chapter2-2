@@ -1,8 +1,8 @@
-import { Coupon, Product } from '../../../types.ts';
-import { PageLayout } from '../../components/PageLayout.tsx';
-import { useCart } from '../../features/cart/hooks/index.ts';
-import { CartList } from '../../features/cart/components/CartList.tsx';
-import { ProductList } from '../../features/cart/components/ProductList.tsx';
+import { Coupon, Product } from "@/types";
+import { PageLayout } from "@/components";
+import { useCart } from "@/features/cart/hooks";
+import { CartList } from "@/features/cart/components/CartList";
+import { ProductList } from "@/features/cart/components/ProductList";
 
 interface Props {
   products: Product[];

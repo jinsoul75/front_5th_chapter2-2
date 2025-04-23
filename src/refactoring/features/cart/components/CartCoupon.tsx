@@ -1,6 +1,5 @@
-import { Coupon } from '../../../../types';
-import { formatCurrency } from '../../../utils';
-import { formatDiscountRate } from '../../../utils';
+import { Coupon } from "@/types";
+import { formatCurrency, formatDiscountRate } from "@/utils";
 
 interface Props {
   coupons: Coupon[];
@@ -19,8 +18,8 @@ export const CartCoupon = ({ coupons, selectedCoupon, applyCoupon }: Props) => {
         <option value="">쿠폰 선택</option>
         {coupons.map((coupon, index) => (
           <option key={coupon.code} value={index}>
-            {coupon.name} -{' '}
-            {coupon.discountType === 'amount'
+            {coupon.name} -{" "}
+            {coupon.discountType === "amount"
               ? `${formatCurrency(coupon.discountValue)}`
               : `${formatDiscountRate(coupon.discountValue)}`}
           </option>
@@ -29,9 +28,9 @@ export const CartCoupon = ({ coupons, selectedCoupon, applyCoupon }: Props) => {
       {selectedCoupon && (
         <p className="text-green-600">
           적용된 쿠폰: {selectedCoupon.name}(
-          {selectedCoupon.discountType === 'amount'
+          {selectedCoupon.discountType === "amount"
             ? `${formatCurrency(selectedCoupon.discountValue)}`
-            : `${formatDiscountRate(selectedCoupon.discountValue)}`}{' '}
+            : `${formatDiscountRate(selectedCoupon.discountValue)}`}{" "}
           할인)
         </p>
       )}

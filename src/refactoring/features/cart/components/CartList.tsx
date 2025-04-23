@@ -1,8 +1,8 @@
-import { CartItem, Coupon } from '../../../../types';
-import { useDiscountCalculator } from '../hooks/useDiscountCalculator';
-import { CartCard } from './CartCard';
-import { CartCoupon } from './CartCoupon';
-import { CartTotal } from './CartTotal';
+import { CartItem, Coupon } from "@/types";
+import { useDiscount } from "../hooks/useDiscount";
+import { CartCard } from "./CartCard";
+import { CartCoupon } from "./CartCoupon";
+import { CartTotal } from "./CartTotal";
 
 interface Props {
   cart: CartItem[];
@@ -21,7 +21,7 @@ export const CartList = ({
   coupons,
   selectedCoupon,
 }: Props) => {
-  const { cartCalculations } = useDiscountCalculator(cart, selectedCoupon);
+  const { cartCalculations } = useDiscount(cart, selectedCoupon);
 
   const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = cartCalculations;
 

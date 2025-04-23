@@ -1,4 +1,4 @@
-import { Product } from '../../types';
+import { Product } from "@/types";
 
 interface ValidationError {
   field: string;

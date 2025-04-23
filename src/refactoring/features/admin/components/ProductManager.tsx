@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Discount, Product } from "../../../../types";
-import { formatDiscountRate, validateProductData } from "../../../utils";
+import { Discount, Product } from "@/types";
+import { formatDiscountRate, validateProductData } from "@/utils";
 
 interface Props {
   products: Product[];

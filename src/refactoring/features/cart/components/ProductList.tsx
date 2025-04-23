@@ -1,6 +1,7 @@
-import { CartItem, Product } from '../../../../types';
-import { ProductCard } from './ProductCard';
-import { calculateRemainingStock } from '../models/cart';
+import { CartItem, Product } from "@/types";
+import { calculateRemainingStock } from "@/utils";
+import { ProductCard } from "./ProductCard";
+
 interface Props {
   cart: CartItem[];
   products: Product[];
@@ -8,10 +9,6 @@ interface Props {
 }
 
 export const ProductList = ({ cart, products, addToCart }: Props) => {
-  const getMaxDiscount = (discounts: { quantity: number; rate: number }[]) => {
-    return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
-  };
-
   const getRemainingStock = (product: Product) => {
     return calculateRemainingStock(product, cart);
   };
@@ -25,7 +22,6 @@ export const ProductList = ({ cart, products, addToCart }: Props) => {
             key={product.id}
             product={product}
             getRemainingStock={getRemainingStock}
-            getMaxDiscount={getMaxDiscount}
             addToCart={addToCart}
           />
         ))}

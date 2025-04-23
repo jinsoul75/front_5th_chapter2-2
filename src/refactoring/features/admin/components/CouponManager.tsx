@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Coupon } from "../../../../types";
+import { Coupon } from "@/types";
 
 interface Props {
   onCouponAdd: (newCoupon: Coupon) => void;

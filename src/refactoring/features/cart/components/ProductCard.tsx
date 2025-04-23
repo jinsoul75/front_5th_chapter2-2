@@ -1,20 +1,19 @@
-import { Product } from '../../../../types';
-import { formatDiscountRate, formatCurrency } from '../../../utils';
+import { Product } from "@/types";
+import { formatDiscountRate, formatCurrency, getMaxDiscount } from "@/utils";
 
 interface Props {
   product: Product;
   getRemainingStock: (product: Product) => number;
-  getMaxDiscount: (discounts: { quantity: number; rate: number }[]) => number;
   addToCart: (product: Product) => void;
 }
 
 export const ProductCard = ({
   product,
   getRemainingStock,
-  getMaxDiscount,
-  addToCart,
+  addToCart
 }: Props) => {
   const remainingStock = getRemainingStock(product);
+
   return (
     <div
       key={product.id}
@@ -28,7 +27,7 @@ export const ProductCard = ({
       <div className="text-sm text-gray-500 mb-2">
         <span
           className={`font-medium ${
-            remainingStock > 0 ? 'text-green-600' : 'text-red-600'
+            remainingStock > 0 ? "text-green-600" : "text-red-600"
           }`}
         >
           재고: {remainingStock}개
@@ -43,7 +42,8 @@ export const ProductCard = ({
         <ul className="list-disc list-inside text-sm text-gray-500 mb-2">
           {product.discounts.map((discount, index) => (
             <li key={index}>
-              {discount.quantity}개 이상: {formatDiscountRate(discount.rate)} 할인
+              {discount.quantity}개 이상: {formatDiscountRate(discount.rate)}{" "}
+              할인
             </li>
           ))}
         </ul>
@@ -52,12 +52,12 @@ export const ProductCard = ({
         onClick={() => addToCart(product)}
         className={`w-full px-3 py-1 rounded ${
           remainingStock > 0
-            ? 'bg-blue-500 text-white hover:bg-blue-600'
-            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            ? "bg-blue-500 text-white hover:bg-blue-600"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
         }`}
         disabled={remainingStock <= 0}
       >
-        {remainingStock > 0 ? '장바구니에 추가' : '품절'}
+        {remainingStock > 0 ? "장바구니에 추가" : "품절"}
       </button>
     </div>
   );

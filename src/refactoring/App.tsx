@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CartPage, AdminPage } from './pages';
-import { Coupon, Product } from '../types.ts';
-import { useCoupons, useProducts } from './features/cart/hooks/index.ts';
+import { Coupon, Product } from '@/types';
+import { useCoupons, useProducts } from '@/features/cart/hooks';
 import { Navigation } from './components';
 import { NAVIGATION_TEXT } from './constants';
 

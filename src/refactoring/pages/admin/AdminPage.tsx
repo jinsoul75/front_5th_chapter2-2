@@ -1,6 +1,6 @@
-import { Coupon, Product } from "../../../types";
-import { PageLayout } from "../../components";
-import { CouponManager, ProductManager } from "../../features/admin/components";
+import { Coupon, Product } from "@/types";
+import { PageLayout } from "@/components";
+import { CouponManager, ProductManager } from "@/features/admin/components";
 
 interface Props {
   products: Product[];

@@ -1,4 +1,4 @@
-import { CartItem, Coupon, Product } from '../../../../types';
+import { CartItem, Coupon, Product } from "@/types";
 
 export const getAppliedDiscount = (item: CartItem) => {
   const { discounts } = item.product;

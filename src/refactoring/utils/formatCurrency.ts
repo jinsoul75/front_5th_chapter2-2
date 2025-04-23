@@ -1,4 +1,4 @@
-import { CURRENCY } from '../constants';
+import { CURRENCY } from "@/constants";
 
 interface FormatCurrencyOptions {
   currency?: keyof typeof CURRENCY;
