@@ -1,19 +1,22 @@
-import { Discount, Product } from '../../../../types';
+import { CartItem, Product } from '../../../../types';
+import { calculateRemainingStock } from '../../../models/cart';
 import { formatDiscountRate, formatCurrency } from '../../../utils';
 
 interface Props {
+  cart: CartItem[];
   products: Product[];
   addToCart: (product: Product) => void;
-  getMaxDiscount: (discounts: Discount[]) => number;
-  getRemainingStock: (product: Product) => number;
 }
 
-export const ProductList = ({
-  products,
-  addToCart,
-  getMaxDiscount,
-  getRemainingStock,
-}: Props) => {
+export const ProductList = ({ cart, products, addToCart }: Props) => {
+  const getMaxDiscount = (discounts: { quantity: number; rate: number }[]) => {
+    return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
+  };
+
+  const getRemainingStock = (product: Product) => {
+    return calculateRemainingStock(product, cart);
+  };
+
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 목록</h2>

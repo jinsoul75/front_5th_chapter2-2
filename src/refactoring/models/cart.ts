@@ -1,9 +1,13 @@
-import { CartItem, Coupon, Product } from "../../types";
+import { CartItem, Coupon, Product } from '../../types';
+export const calculateRemainingStock = (product: Product, cartItems: CartItem[]) => {
+  const cartItem = cartItems.find((item) => item.product.id === product.id);
+  return product.stock - (cartItem?.quantity || 0);
+};
 
 // 장바구니에 상품 찾기
 export const findCartItem = (
   cart: CartItem[],
-  productId: string
+  productId: string,
 ): CartItem | undefined => {
   return cart.find((item) => item.product.id === productId);
 };
@@ -14,10 +18,7 @@ export const createCartItem = (product: Product): CartItem => {
 };
 
 // 장바구니에 기존상품 추가
-export const addProductToCart = (
-  cart: CartItem[],
-  product: Product
-): CartItem[] => {
+export const addProductToCart = (cart: CartItem[], product: Product): CartItem[] => {
   const existingItem = findCartItem(cart, product.id);
 
   if (existingItem) {
@@ -45,19 +46,14 @@ export const getMaxApplicableDiscount = (item: CartItem) => {
   const { discounts } = product;
 
   const maxDiscount = discounts.reduce((max, discount) => {
-    return quantity >= discount.quantity && discount.rate > max
-      ? discount.rate
-      : max;
+    return quantity >= discount.quantity && discount.rate > max ? discount.rate : max;
   }, 0);
 
   return maxDiscount;
 };
 
 // 최종 장바구니 할인금액 계산
-export const calculateCartTotal = (
-  cart: CartItem[],
-  selectedCoupon: Coupon | null
-) => {
+export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
   let totalBeforeDiscount = 0;
   let totalAfterDiscount = 0;
 
@@ -72,11 +68,8 @@ export const calculateCartTotal = (
   });
 
   if (selectedCoupon) {
-    if (selectedCoupon.discountType === "amount") {
-      totalAfterDiscount = Math.max(
-        0,
-        totalAfterDiscount - selectedCoupon.discountValue
-      );
+    if (selectedCoupon.discountType === 'amount') {
+      totalAfterDiscount = Math.max(0, totalAfterDiscount - selectedCoupon.discountValue);
     } else {
       totalAfterDiscount *= 1 - selectedCoupon.discountValue / 100;
     }
@@ -87,14 +80,14 @@ export const calculateCartTotal = (
   return {
     totalBeforeDiscount,
     totalAfterDiscount,
-    totalDiscount
+    totalDiscount,
   };
 };
 
 export const updateCartItemQuantity = (
   cart: CartItem[],
   productId: string,
-  newQuantity: number
+  newQuantity: number,
 ): CartItem[] => {
   const cartItem = cart.find((item) => item.product.id === productId);
 
@@ -107,9 +100,7 @@ export const updateCartItemQuantity = (
 
   return cart
     .map((item) =>
-      item.product.id === productId
-        ? { ...item, quantity: updatedQuantity }
-        : item
+      item.product.id === productId ? { ...item, quantity: updatedQuantity } : item,
     )
     .filter((item) => item.quantity > 0);
 };

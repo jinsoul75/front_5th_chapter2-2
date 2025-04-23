@@ -1,10 +1,9 @@
-import { CartItem, Coupon } from "../../../../types";
-import { useDiscountCalculator } from "../../../hooks/useDiscountCalculator";
-import { formatDiscountRate, formatCurrency } from "../../../utils";
+import { CartItem, Coupon } from '../../../../types';
+import { useDiscountCalculator } from '../../../hooks/useDiscountCalculator';
+import { formatDiscountRate, formatCurrency } from '../../../utils';
 
 interface Props {
   cart: CartItem[];
-  getAppliedDiscount: (item: CartItem) => number;
   updateQuantity: (productId: string, newQuantity: number) => void;
   removeFromCart: (productId: string) => void;
   applyCoupon: (coupon: Coupon) => void;
@@ -14,17 +13,27 @@ interface Props {
 
 export const CartList = ({
   cart,
-  getAppliedDiscount,
   updateQuantity,
   removeFromCart,
   applyCoupon,
   coupons,
-  selectedCoupon
+  selectedCoupon,
 }: Props) => {
   const { cartCalculations } = useDiscountCalculator(cart, selectedCoupon);
 
-  const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } =
-    cartCalculations;
+  const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = cartCalculations;
+
+  const getAppliedDiscount = (item: CartItem) => {
+    const { discounts } = item.product;
+    const { quantity } = item;
+    let appliedDiscount = 0;
+    for (const discount of discounts) {
+      if (quantity >= discount.quantity) {
+        appliedDiscount = Math.max(appliedDiscount, discount.rate);
+      }
+    }
+    return appliedDiscount;
+  };
 
   return (
     <div>
@@ -51,17 +60,13 @@ export const CartList = ({
               </div>
               <div>
                 <button
-                  onClick={() =>
-                    updateQuantity(item.product.id, item.quantity - 1)
-                  }
+                  onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                   className="bg-gray-300 text-gray-800 px-2 py-1 rounded mr-1 hover:bg-gray-400"
                 >
                   -
                 </button>
                 <button
-                  onClick={() =>
-                    updateQuantity(item.product.id, item.quantity + 1)
-                  }
+                  onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                   className="bg-gray-300 text-gray-800 px-2 py-1 rounded mr-1 hover:bg-gray-400"
                 >
                   +
@@ -87,8 +92,8 @@ export const CartList = ({
           <option value="">쿠폰 선택</option>
           {coupons.map((coupon, index) => (
             <option key={coupon.code} value={index}>
-              {coupon.name} -{" "}
-              {coupon.discountType === "amount"
+              {coupon.name} -{' '}
+              {coupon.discountType === 'amount'
                 ? `${formatCurrency(coupon.discountValue)}`
                 : `${formatDiscountRate(coupon.discountValue)}`}
             </option>
@@ -97,9 +102,9 @@ export const CartList = ({
         {selectedCoupon && (
           <p className="text-green-600">
             적용된 쿠폰: {selectedCoupon.name}(
-            {selectedCoupon.discountType === "amount"
+            {selectedCoupon.discountType === 'amount'
               ? `${formatCurrency(selectedCoupon.discountValue)}`
-              : `${formatDiscountRate(selectedCoupon.discountValue)}`}{" "}
+              : `${formatDiscountRate(selectedCoupon.discountValue)}`}{' '}
             할인)
           </p>
         )}
@@ -109,9 +114,7 @@ export const CartList = ({
         <h2 className="text-2xl font-semibold mb-2">주문 요약</h2>
         <div className="space-y-1">
           <p>상품 금액: {formatCurrency(totalBeforeDiscount)}</p>
-          <p className="text-green-600">
-            할인 금액: {formatCurrency(totalDiscount)}
-          </p>
+          <p className="text-green-600">할인 금액: {formatCurrency(totalDiscount)}</p>
           <p className="text-xl font-bold">
             최종 결제 금액: {formatCurrency(totalAfterDiscount)}
           </p>
