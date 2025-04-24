@@ -29,8 +29,9 @@ export const ProductList = ({ cart, products, addToCart }: Props) => {
                   remainingStock={remainingStock}
                   isOutOfStock={isOutOfStock}
                 />
-                <ProductCard.Discount discounts={product.discounts} />
+                <ProductCard.MaxDiscountRate discounts={product.discounts} />
               </div>
+              <ProductCard.DiscountList discounts={product.discounts} />
               <ProductCard.AddToCartButton
                 isOutOfStock={isOutOfStock}
                 addToCart={addToCart}
