@@ -1,6 +1,6 @@
 import { formatCurrency, formatDiscountRate } from '@/utils';
 import { CartItem } from '@/types';
-import { getAppliedDiscount } from '../models/cart';
+import { getAppliedDiscount } from '../../models/cart';
 interface Props {
   item: CartItem;
   updateQuantity: (productId: string, newQuantity: number) => void;

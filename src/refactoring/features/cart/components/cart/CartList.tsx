@@ -1,5 +1,5 @@
 import { CartItem, Coupon } from "@/types";
-import { useDiscount } from "../hooks/useDiscount";
+import { useDiscount } from "../../hooks/useDiscount";
 import { CartCard } from "./CartCard";
 import { CartCoupon } from "./CartCoupon";
 import { CartTotal } from "./CartTotal";

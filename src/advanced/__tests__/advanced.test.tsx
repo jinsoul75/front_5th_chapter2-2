@@ -2,7 +2,7 @@ import { useState } from "react";
 import { describe, expect, test } from "vitest";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { CartPage, AdminPage } from "../../refactoring/pages";
-import { Coupon, Product } from "../../types";
+import { Coupon, Product } from "@/types";
 import {
   formatCurrency,
   formatDiscountRate,

@@ -1,8 +1,7 @@
 import { Coupon, Product } from "@/types";
 import { PageLayout } from "@/components";
 import { useCart } from "@/features/cart/hooks";
-import { CartList } from "@/features/cart/components/CartList";
-import { ProductList } from "@/features/cart/components/ProductList";
+import { CartList, ProductList } from "@/features/cart/components/";
 
 interface Props {
   products: Product[];
@@ -10,8 +9,14 @@ interface Props {
 }
 
 export const CartPage = ({ products, coupons }: Props) => {
-  const { cart, addToCart, removeFromCart, updateQuantity, applyCoupon, selectedCoupon } =
-    useCart();
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    applyCoupon,
+    selectedCoupon
+  } = useCart();
 
   return (
     <PageLayout title="장바구니">

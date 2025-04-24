@@ -1,0 +1,45 @@
+import { CartItem, Product } from "@/types";
+import { ProductCard } from "./ProductCard";
+import { getProductInfo } from "@/utils/getProductInfo";
+
+interface Props {
+  cart: CartItem[];
+  products: Product[];
+  addToCart: (product: Product) => void;
+}
+
+export const ProductList = ({ cart, products, addToCart }: Props) => {
+  return (
+    <div>
+      <h2 className="text-2xl font-semibold mb-4">상품 목록</h2>
+      <div className="space-y-2">
+        {products.map((product) => {
+          const { remainingStock, isOutOfStock } = getProductInfo(
+            product,
+            cart
+          );
+          return (
+            <ProductCard
+              key={product.id}
+              data-testid={`product-${product.id}`}
+            >
+              <ProductCard.Header product={product} />
+              <div className="text-sm text-gray-500 mb-2">
+                <ProductCard.Stock
+                  remainingStock={remainingStock}
+                  isOutOfStock={isOutOfStock}
+                />
+                <ProductCard.Discount discounts={product.discounts} />
+              </div>
+              <ProductCard.AddToCartButton
+                isOutOfStock={isOutOfStock}
+                addToCart={addToCart}
+                product={product}
+              />
+            </ProductCard>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
