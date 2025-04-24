@@ -14,13 +14,6 @@ import { useCart } from '../../refactoring/features/cart/hooks/useCart';
 import * as cartUtils from '../../refactoring/features/cart/models/cart';
 import { useCoupons } from '@/features/shared/hooks/useCoupon';
 import { useProduct } from '@/features/shared/hooks';
-import { useDiscount } from '@/features/cart/hooks/useDiscount';
-import {
-  formatCurrency,
-  formatDiscountRate,
-  validateProductData,
-} from '../../refactoring/features/cart/utils';
-import { useLocalStorage } from '@/features/cart/hooks/useLocalStorage';
 import { calculateCartTotal } from '@/features/cart/models/cart';
 
 const mockProducts: Product[] = [
