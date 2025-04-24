@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Product } from "@/types";
-import { ProductAddForm } from "./ProductAddForm";
-import { ProductCard } from "./ProductCard";
+import { useState } from 'react';
+import { Product } from '@/types';
+import { ProductAddForm } from './ProductAddForm';
+import { ProductCard } from './ProductCard';
 
 interface Props {
   products: Product[];
@@ -9,11 +9,7 @@ interface Props {
   addProduct: (newProduct: Product) => void;
 }
 
-export const ProductSection = ({
-  products,
-  updateProduct,
-  addProduct
-}: Props) => {
+export const ProductSection = ({ products, updateProduct, addProduct }: Props) => {
   const [showNewProductForm, setShowNewProductForm] = useState(false);
 
   return (
@@ -23,7 +19,7 @@ export const ProductSection = ({
         onClick={() => setShowNewProductForm(!showNewProductForm)}
         className="bg-green-500 text-white px-4 py-2 rounded mb-4 hover:bg-green-600"
       >
-        {showNewProductForm ? "취소" : "새 상품 추가"}
+        {showNewProductForm ? '취소' : '새 상품 추가'}
       </button>
       {showNewProductForm && (
         <ProductAddForm
