@@ -13,7 +13,7 @@ interface Props {
   selectedCoupon: Coupon | null;
 }
 
-export const CartList = ({
+export const CartSection = ({
   cart,
   updateQuantity,
   removeFromCart,

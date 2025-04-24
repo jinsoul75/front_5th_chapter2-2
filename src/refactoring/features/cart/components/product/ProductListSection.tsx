@@ -8,7 +8,7 @@ interface Props {
   addToCart: (product: Product) => void;
 }
 
-export const ProductList = ({ cart, products, addToCart }: Props) => {
+export const ProductListSection = ({ cart, products, addToCart }: Props) => {
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 목록</h2>
