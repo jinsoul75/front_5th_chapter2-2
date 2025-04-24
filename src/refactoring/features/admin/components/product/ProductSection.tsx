@@ -1,47 +1,20 @@
 import { useState } from "react";
 import { Product } from "@/types";
-import { validateProductData } from "@/utils";
 import { ProductAddForm } from "./ProductAddForm";
-import { ProductCart } from "./ProductCart";
+import { ProductCard } from "./ProductCard";
 
 interface Props {
   products: Product[];
-  onProductUpdate: (updatedProduct: Product) => void;
-  onProductAdd: (newProduct: Product) => void;
+  updateProduct: (updatedProduct: Product) => void;
+  addProduct: (newProduct: Product) => void;
 }
 
 export const ProductSection = ({
   products,
-  onProductUpdate,
-  onProductAdd
+  updateProduct,
+  addProduct
 }: Props) => {
   const [showNewProductForm, setShowNewProductForm] = useState(false);
-  const [newProduct, setNewProduct] = useState<Omit<Product, "id">>({
-    name: "",
-    price: 0,
-    stock: 0,
-    discounts: []
-  });
-
-  const handleAddNewProduct = () => {
-    const productWithId = { ...newProduct, id: Date.now().toString() };
-
-    const validationErrors = validateProductData(productWithId);
-
-    if (validationErrors.length > 0) {
-      alert(validationErrors.map((error) => error.message).join("\n"));
-      return;
-    }
-
-    onProductAdd(productWithId);
-    setNewProduct({
-      name: "",
-      price: 0,
-      stock: 0,
-      discounts: []
-    });
-    setShowNewProductForm(false);
-  };
 
   return (
     <div>
@@ -54,19 +27,18 @@ export const ProductSection = ({
       </button>
       {showNewProductForm && (
         <ProductAddForm
-          newProduct={newProduct}
-          setNewProduct={setNewProduct}
-          handleAddNewProduct={handleAddNewProduct}
+          addProduct={addProduct}
+          setShowNewProductForm={setShowNewProductForm}
         />
       )}
       <div className="space-y-2">
         {products.map((product, index) => (
-          <ProductCart
+          <ProductCard
             key={product.id}
             products={products}
             product={product}
             index={index}
-            onProductUpdate={onProductUpdate}
+            updateProduct={updateProduct}
           />
         ))}
       </div>

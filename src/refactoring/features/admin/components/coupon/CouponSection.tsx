@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Coupon } from "@/types";
 
 interface Props {
-  onCouponAdd: (newCoupon: Coupon) => void;
+  addCoupon: (newCoupon: Coupon) => void;
   coupons: Coupon[];
 }
 
 export const CouponSection = ({
-  onCouponAdd,
+  addCoupon,
   coupons,
 }: Props) => {
   const [newCoupon, setNewCoupon] = useState<Coupon>({
@@ -20,7 +20,7 @@ export const CouponSection = ({
 
 
   const handleAddCoupon = () => {
-    onCouponAdd(newCoupon);
+    addCoupon(newCoupon);
     setNewCoupon({
       name: "",
       code: "",

@@ -1,14 +1,43 @@
 import { Product } from "@/types";
+import { validateProductData } from "@/utils";
+import { useState } from "react";
 
 export const ProductAddForm = ({
-  newProduct,
-  setNewProduct,
-  handleAddNewProduct
+  addProduct,
+  setShowNewProductForm
 }: {
-  newProduct: Omit<Product, "id">;
-  setNewProduct: (product: Omit<Product, "id">) => void;
-  handleAddNewProduct: () => void;
+  addProduct: (product: Product) => void;
+  setShowNewProductForm: (show: boolean) => void;
 }) => {
+  const [newProduct, setNewProduct] = useState<Omit<Product, "id">>({
+    name: "",
+    price: 0,
+    stock: 0,
+    discounts: []
+  });
+
+  const handleAddNewProduct = () => {
+    const productWithId = { ...newProduct, id: Date.now().toString() };
+
+    const validationErrors = validateProductData(productWithId);
+
+    if (validationErrors.length > 0) {
+      alert(validationErrors.map((error) => error.message).join("\n"));
+      return;
+    }
+
+    addProduct(productWithId);
+
+    setNewProduct({
+      name: "",
+      price: 0,
+      stock: 0,
+      discounts: []
+    });
+
+    setShowNewProductForm(false);
+  };
+
   return (
     <div className="bg-white p-4 rounded shadow mb-4">
       <h3 className="text-xl font-semibold mb-2">새 상품 추가</h3>

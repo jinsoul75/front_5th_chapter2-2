@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { CartPage, AdminPage } from './pages';
-import { useCoupons, useProducts } from '@/features/cart/hooks';
+import { useCoupons, useProduct } from '@/features/shared/hooks';
 import { Navigation } from './components';
 import { COUPONS, NAVIGATION_TEXT, PRODUCTS } from './constants';
 
-
 const App = () => {
-  const { products, updateProduct, addProduct } = useProducts(PRODUCTS);
+  const { products, updateProduct, addProduct } = useProduct(PRODUCTS);
   const { coupons, addCoupon } = useCoupons(COUPONS);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -24,9 +23,9 @@ const App = () => {
           <AdminPage
             products={products}
             coupons={coupons}
-            onProductUpdate={updateProduct}
-            onProductAdd={addProduct}
-            onCouponAdd={addCoupon}
+            updateProduct={updateProduct}
+            addProduct={addProduct}
+            addCoupon={addCoupon}
           />
         ) : (
           <CartPage products={products} coupons={coupons} />

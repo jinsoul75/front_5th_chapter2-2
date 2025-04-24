@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Product } from "@/types";
 
-export const useProducts = (initialProducts: Product[]) => {
+export const useProduct = (initialProducts: Product[]) => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
 
   const updateProduct = (updatedProduct: Product) => {
     setProducts((prevProducts) =>
-      prevProducts.map((p) => (p.id === updatedProduct.id ? updatedProduct : p)),
+      prevProducts.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
     );
   };
 
@@ -17,6 +17,6 @@ export const useProducts = (initialProducts: Product[]) => {
   return {
     products,
     updateProduct,
-    addProduct,
+    addProduct
   };
 };
