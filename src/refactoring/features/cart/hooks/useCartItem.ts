@@ -1,6 +1,6 @@
-import { formatDiscountRate, formatCurrency } from "@/utils";
-import { getAppliedDiscount } from "../models/cart";
-import { CartItem } from "@/types";
+import { formatDiscountRate, formatCurrency } from '@/features/cart/utils';
+import { getAppliedDiscount } from '../models/cart';
+import { CartItem } from '@/types';
 
 export const useCartItem = (item: CartItem) => {
   const appliedDiscount = getAppliedDiscount(item);
@@ -15,6 +15,6 @@ export const useCartItem = (item: CartItem) => {
     hasDiscount,
     quantity: item.quantity,
     productId: item.product.id,
-    productName: item.product.name
+    productName: item.product.name,
   };
 };

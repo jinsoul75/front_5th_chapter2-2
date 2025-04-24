@@ -1,5 +1,5 @@
-import { Coupon } from "@/types";
-import { formatCurrency, formatDiscountRate } from "@/utils";
+import { Coupon } from '@/types';
+import { formatCurrency, formatDiscountRate } from '@/features/cart/utils';
 
 export const CartCouponSelect = ({
   applyCoupon,
@@ -16,8 +16,8 @@ export const CartCouponSelect = ({
       <option value="">쿠폰 선택</option>
       {coupons.map((coupon, index) => (
         <option key={coupon.code} value={index}>
-          {coupon.name} -{" "}
-          {coupon.discountType === "amount"
+          {coupon.name} -{' '}
+          {coupon.discountType === 'amount'
             ? `${formatCurrency(coupon.discountValue)}`
             : `${formatDiscountRate(coupon.discountValue)}`}
         </option>

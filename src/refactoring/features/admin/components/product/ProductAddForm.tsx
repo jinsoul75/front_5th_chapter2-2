@@ -1,19 +1,19 @@
-import { Product } from "@/types";
-import { validateProductData } from "@/utils";
-import { useState } from "react";
+import { Product } from '@/types';
+import { validateProductData } from '@/features/cart/utils';
+import { useState } from 'react';
 
 export const ProductAddForm = ({
   addProduct,
-  setShowNewProductForm
+  setShowNewProductForm,
 }: {
   addProduct: (product: Product) => void;
   setShowNewProductForm: (show: boolean) => void;
 }) => {
-  const [newProduct, setNewProduct] = useState<Omit<Product, "id">>({
-    name: "",
+  const [newProduct, setNewProduct] = useState<Omit<Product, 'id'>>({
+    name: '',
     price: 0,
     stock: 0,
-    discounts: []
+    discounts: [],
   });
 
   const handleAddNewProduct = () => {
@@ -22,17 +22,17 @@ export const ProductAddForm = ({
     const validationErrors = validateProductData(productWithId);
 
     if (validationErrors.length > 0) {
-      alert(validationErrors.map((error) => error.message).join("\n"));
+      alert(validationErrors.map((error) => error.message).join('\n'));
       return;
     }
 
     addProduct(productWithId);
 
     setNewProduct({
-      name: "",
+      name: '',
       price: 0,
       stock: 0,
-      discounts: []
+      discounts: [],
     });
 
     setShowNewProductForm(false);
@@ -42,27 +42,19 @@ export const ProductAddForm = ({
     <div className="bg-white p-4 rounded shadow mb-4">
       <h3 className="text-xl font-semibold mb-2">새 상품 추가</h3>
       <div className="mb-2">
-        <label
-          htmlFor="productName"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="productName" className="block text-sm font-medium text-gray-700">
           상품명
         </label>
         <input
           id="productName"
           type="text"
           value={newProduct.name}
-          onChange={(e) =>
-            setNewProduct({ ...newProduct, name: e.target.value })
-          }
+          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
           className="w-full p-2 border rounded"
         />
       </div>
       <div className="mb-2">
-        <label
-          htmlFor="productPrice"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="productPrice" className="block text-sm font-medium text-gray-700">
           가격
         </label>
         <input
@@ -72,17 +64,14 @@ export const ProductAddForm = ({
           onChange={(e) =>
             setNewProduct({
               ...newProduct,
-              price: parseInt(e.target.value)
+              price: parseInt(e.target.value),
             })
           }
           className="w-full p-2 border rounded"
         />
       </div>
       <div className="mb-2">
-        <label
-          htmlFor="productStock"
-          className="block text-sm font-medium text-gray-700"
-        >
+        <label htmlFor="productStock" className="block text-sm font-medium text-gray-700">
           재고
         </label>
         <input
@@ -92,7 +81,7 @@ export const ProductAddForm = ({
           onChange={(e) =>
             setNewProduct({
               ...newProduct,
-              stock: parseInt(e.target.value)
+              stock: parseInt(e.target.value),
             })
           }
           className="w-full p-2 border rounded"

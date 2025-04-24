@@ -1,5 +1,5 @@
-import { formatDiscountRate } from "@/utils/formatDiscountRate";
-import { Product } from "@/types";
+import { formatDiscountRate } from '@/features/cart/utils/formatDiscountRate';
+import { Product } from '@/types';
 
 interface Props {
   product: Product;
@@ -12,8 +12,7 @@ export const ProductInfo = ({ product, handleEditProduct }: Props) => {
       {product.discounts.map((discount, index) => (
         <div key={index} className="mb-2">
           <span>
-            {discount.quantity}개 이상 구매 시{" "}
-            {formatDiscountRate(discount.rate)}
+            {discount.quantity}개 이상 구매 시 {formatDiscountRate(discount.rate)}
             할인
           </span>
         </div>

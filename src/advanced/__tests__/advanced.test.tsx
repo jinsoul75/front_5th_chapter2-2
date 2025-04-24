@@ -1,13 +1,22 @@
 import { useState } from 'react';
-import { describe, expect, test } from 'vitest';
-import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { beforeEach, describe, expect, test } from 'vitest';
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  within,
+} from '@testing-library/react';
 import { CartPage, AdminPage } from '../../refactoring/pages';
 import { Coupon, Product } from '@/types';
 import {
   formatCurrency,
   formatDiscountRate,
   validateProductData,
-} from '../../refactoring/utils';
+} from '../../refactoring/features/cart/utils';
+import { useCart } from '@/features/cart/hooks/useCart';
+import { useLocalStorage } from '@/features/cart/hooks/useLocalStorage';
 
 const mockProducts: Product[] = [
   {
@@ -252,7 +261,7 @@ describe('advanced > ', () => {
     });
   });
 
-  describe('자유롭게 작성해보세요.', () => {
+  describe('utils 테스트', () => {
     test('formatCurrency 테스트', () => {
       expect(formatCurrency(10000)).toBe('10,000원');
     });
@@ -281,9 +290,22 @@ describe('advanced > ', () => {
         },
       ]);
     });
+  });
 
-    test('새로운 hook 함수르 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
-      expect(true).toBe(true);
+  describe('useCart 테스트', () => {
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    test('초기값으로 상태를 초기화해야 합니다', () => {
+      const { result } = renderHook(() => useLocalStorage('testKey', 'initialValue'));
+      expect(result.current[0]).toBe('initialValue');
+    });
+
+    test('localStorage에 저장된 값이 있다면 그 값을 사용해야합니다.', () => {
+      localStorage.setItem('testKey', JSON.stringify('storedValue'));
+      const { result } = renderHook(() => useLocalStorage('testKey', 'initialValue'));
+      expect(result.current[0]).toBe('storedValue');
     });
   });
 });

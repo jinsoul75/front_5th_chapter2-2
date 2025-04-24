@@ -1,5 +1,5 @@
-import { Product } from "@/types";
-import { formatCurrency } from "@/utils";
+import { Product } from '@/types';
+import { formatCurrency } from '@/features/cart/utils';
 
 export const ProductCardHeader = ({ product }: { product: Product }) => (
   <div className="flex justify-between items-center mb-2">
