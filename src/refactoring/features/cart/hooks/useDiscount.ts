@@ -1,6 +1,5 @@
-import { useMemo } from "react";
-import { CartItem, Coupon } from "@/types";
-import { calculateCartTotal } from "../models/cart";
+import { CartItem, Coupon } from '@/types';
+import { calculateCartTotal } from '../models/cart';
 
 interface UseDiscountReturn {
   cartCalculations: {
@@ -15,11 +14,8 @@ export const useDiscount = (
   cart: CartItem[],
   selectedCoupon: Coupon | null,
 ): UseDiscountReturn => {
-  // 장바구니 전체 할인 계산 - cart나 coupon이 변경될 때만 재계산
-  const cartCalculations = useMemo(
-    () => calculateCartTotal(cart, selectedCoupon),
-    [cart, selectedCoupon],
-  );
+  // 장바구니 전체 할인 계산
+  const cartCalculations = calculateCartTotal(cart, selectedCoupon);
 
   return {
     cartCalculations,

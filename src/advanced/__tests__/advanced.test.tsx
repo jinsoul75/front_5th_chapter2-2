@@ -15,7 +15,6 @@ import {
   formatDiscountRate,
   validateProductData,
 } from '../../refactoring/features/cart/utils';
-import { useCart } from '@/features/cart/hooks/useCart';
 import { useLocalStorage } from '@/features/cart/hooks/useLocalStorage';
 
 const mockProducts: Product[] = [

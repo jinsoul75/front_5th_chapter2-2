@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import {
   act,
   fireEvent,
@@ -9,9 +9,19 @@ import {
   within,
 } from '@testing-library/react';
 import { CartPage, AdminPage } from '../../refactoring/pages';
-import { CartItem, Coupon, Product } from '../../types';
-import { useCart, useCoupons, useProducts } from '../../refactoring/features/cart/hooks';
+import { CartItem, Coupon, Product } from '@/types';
+import { useCart } from '../../refactoring/features/cart/hooks/useCart';
 import * as cartUtils from '../../refactoring/features/cart/models/cart';
+import { useCoupons } from '@/features/shared/hooks/useCoupon';
+import { useProduct } from '@/features/shared/hooks';
+import { useDiscount } from '@/features/cart/hooks/useDiscount';
+import {
+  formatCurrency,
+  formatDiscountRate,
+  validateProductData,
+} from '../../refactoring/features/cart/utils';
+import { useLocalStorage } from '@/features/cart/hooks/useLocalStorage';
+import { calculateCartTotal } from '@/features/cart/models/cart';
 
 const mockProducts: Product[] = [
   {
@@ -73,9 +83,9 @@ const TestAdminPage = () => {
     <AdminPage
       products={products}
       coupons={coupons}
-      onProductUpdate={handleProductUpdate}
-      onProductAdd={handleProductAdd}
-      onCouponAdd={handleCouponAdd}
+      updateProduct={handleProductUpdate}
+      addProduct={handleProductAdd}
+      addCoupon={handleCouponAdd}
     />
   );
 };
@@ -261,13 +271,13 @@ describe('basic > ', () => {
       { id: '1', name: 'Product 1', price: 100, stock: 10, discounts: [] },
     ];
 
-    test('특정 제품으로 초기화할 수 있다.', () => {
-      const { result } = renderHook(() => useProducts(initialProducts));
+    test('.특정 제품으로 초기화할 수 있다', () => {
+      const { result } = renderHook(() => useProduct(initialProducts));
       expect(result.current.products).toEqual(initialProducts);
     });
 
     test('제품을 업데이트할 수 있다.', () => {
-      const { result } = renderHook(() => useProducts(initialProducts));
+      const { result } = renderHook(() => useProduct(initialProducts));
       const updatedProduct = { ...initialProducts[0], name: 'Updated Product' };
 
       act(() => {
@@ -284,7 +294,7 @@ describe('basic > ', () => {
     });
 
     test('새로운 제품을 추가할 수 있다.', () => {
-      const { result } = renderHook(() => useProducts(initialProducts));
+      const { result } = renderHook(() => useProduct(initialProducts));
       const newProduct: Product = {
         id: '2',
         name: 'New Product',
@@ -426,6 +436,10 @@ describe('basic > ', () => {
   });
 
   describe('useCart > ', () => {
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
     const testProduct: Product = {
       id: '1',
       name: 'Test Product',
@@ -498,10 +512,13 @@ describe('basic > ', () => {
         result.current.applyCoupon(testCoupon);
       });
 
-      const total = result.current.calculateTotal();
-      expect(total.totalBeforeDiscount).toBe(200);
-      expect(total.totalAfterDiscount).toBe(180);
-      expect(total.totalDiscount).toBe(20);
+      const cartCalculations = calculateCartTotal(result.current.cart, testCoupon);
+
+      const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = cartCalculations;
+
+      expect(totalBeforeDiscount).toBe(200);
+      expect(totalAfterDiscount).toBe(180);
+      expect(totalDiscount).toBe(20);
     });
   });
 });
