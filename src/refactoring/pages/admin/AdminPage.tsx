@@ -1,6 +1,6 @@
 import { Coupon, Product } from "@/types";
 import { PageLayout } from "@/components";
-import { CouponManager, ProductManager } from "@/features/admin/components";
+import { CouponSection, ProductSection } from "@/features/admin/components";
 
 interface Props {
   products: Product[];
@@ -19,12 +19,12 @@ export const AdminPage = ({
 }: Props) => {
   return (
     <PageLayout title="상품 관리">
-      <ProductManager
+      <ProductSection
         products={products}
         onProductUpdate={onProductUpdate}
         onProductAdd={onProductAdd}
       />
-      <CouponManager onCouponAdd={onCouponAdd} coupons={coupons} />
+      <CouponSection onCouponAdd={onCouponAdd} coupons={coupons} />
     </PageLayout>
   );
 };

@@ -6,7 +6,7 @@ interface Props {
   coupons: Coupon[];
 }
 
-export const CouponManager = ({
+export const CouponSection = ({
   onCouponAdd,
   coupons,
 }: Props) => {
